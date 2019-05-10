@@ -1,21 +1,33 @@
 package com.kodilla.kodillalibrary.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "BOOKS")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class Book {
 
     @Id
-    @Column(name = "BOOKID")
-    private long bookId;
+    @Column(name = "BOOK_ID")
+    private Long bookId;
 
-    @Column(name = "TITLEID")
-    private long titleId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
+    private BookStatus status;
 
-    @V
-    private enum status {avaiable, lost, destroyed}
+    @ManyToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "RELATED_TITLE_ID")
+    private Title title;
+
+    @OneToOne
+    @JoinColumn(name = "BOOK_RENTAL_ID")
+    private BookRental bookRentalId;
 }

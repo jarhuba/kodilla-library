@@ -5,30 +5,34 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
 public class User {
 
     @Id
-    @Column(name = "USERID")
-    private long userId;
+    @Column(name = "USER_ID")
+    private Long userId;
 
-    @Column(name = "FIRSTNAME")
+    @Column(name = "FIRST_NAME")
     private String firstName;
 
-    @Column(name = "LASTNAME")
+    @Column(name = "LAST_NAME")
     private String lastName;
 
     @Column(name = "REGISTRATION_DATE")
     private Date registrationDate;
+
+    @OneToMany(
+            targetEntity = BookRental.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "borrowerUserId")
+    private List<BookRental> rentalsForUser;
 }
