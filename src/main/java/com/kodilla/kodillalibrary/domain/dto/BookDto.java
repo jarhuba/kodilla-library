@@ -1,13 +1,11 @@
 package com.kodilla.kodillalibrary.domain.dto;
 
-import com.kodilla.kodillalibrary.domain.BookRental;
-import com.kodilla.kodillalibrary.domain.BookStatus;
+import com.kodilla.kodillalibrary.domain.RentalBook;
+import com.kodilla.kodillalibrary.domain.StatusOfBook;
 import com.kodilla.kodillalibrary.domain.Title;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +13,7 @@ import javax.persistence.*;
 public class BookDto {
 
     private Long bookId;
-    private BookStatus status;
+    private StatusOfBook status;
     private Title title;
-    private BookRental bookRentalId;
+    private RentalBook rentalBookId;
 }

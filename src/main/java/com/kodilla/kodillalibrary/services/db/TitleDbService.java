@@ -1,4 +1,4 @@
-package com.kodilla.kodillalibrary.services;
+package com.kodilla.kodillalibrary.services.db;
 
 import com.kodilla.kodillalibrary.domain.Title;
 import com.kodilla.kodillalibrary.repository.TitleRepository;

@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class BookRentalDto {
+public class RentalBookDto {
 
     private Long rentalId;
     private Date rentalDate;

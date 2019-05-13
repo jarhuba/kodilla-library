@@ -19,7 +19,7 @@ public class Book {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
-    private BookStatus status;
+    private StatusOfBook status;
 
     @ManyToOne(
             fetch = FetchType.EAGER,
@@ -29,5 +29,5 @@ public class Book {
 
     @OneToOne
     @JoinColumn(name = "BOOK_RENTAL_ID")
-    private BookRental bookRentalId;
+    private RentalBook rentalBookId;
 }

@@ -3,7 +3,6 @@ package com.kodilla.kodillalibrary.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,9 +29,9 @@ public class User {
     private Date registrationDate;
 
     @OneToMany(
-            targetEntity = BookRental.class,
+            targetEntity = RentalBook.class,
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "borrowerUserId")
-    private List<BookRental> rentalsForUser;
+    private List<RentalBook> rentalsForUser;
 }
