@@ -1,5 +1,7 @@
 package com.kodilla.kodillalibrary.services.db;
 
+import com.kodilla.kodillalibrary.controller.exception.RentalBookNotFoundException;
+import com.kodilla.kodillalibrary.domain.Book;
 import com.kodilla.kodillalibrary.domain.RentalBook;
 import com.kodilla.kodillalibrary.domain.Title;
 import com.kodilla.kodillalibrary.domain.User;
@@ -27,6 +29,10 @@ public class RentalBookDbService {
 
     public Optional<RentalBook> findBookRentalById(final Long id) {
         return rentalRepository.findById(id);
+    }
+
+    public RentalBook findRentalBookByRentedBookId(final Book book) throws RentalBookNotFoundException{
+        return rentalRepository.findRentalBookByRentedBookId(book).orElseThrow(RentalBookNotFoundException::new);
     }
 
     public RentalBook saveBookRental(final RentalBook rentalBook) {

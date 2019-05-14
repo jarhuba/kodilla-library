@@ -1,5 +1,7 @@
 package com.kodilla.kodillalibrary.controller;
 
+import com.kodilla.kodillalibrary.controller.exception.RentalBookNotFoundException;
+import com.kodilla.kodillalibrary.domain.Book;
 import com.kodilla.kodillalibrary.domain.RentalBook;
 import com.kodilla.kodillalibrary.domain.dto.AvaiableBooksNumberDto;
 import com.kodilla.kodillalibrary.domain.dto.BookDto;
@@ -67,9 +69,16 @@ public class LibraryController {
     }
 
     @GetMapping("rentBook")
-    public RentalBook rentBook(UserDto userDto, TitleDto titleDto) {
-        return rentBookService(titleMapper.mapToTitle(titleDto), userMapper.mapToUser(userDto));
+    public RentalBook rentBook(UserDto userDto, TitleDto titleDto) throws Exception {
+        return rentBookService.rentBook(titleMapper.mapToTitle(titleDto), userMapper.mapToUser(userDto));
     }
+
+    @GetMapping("returnBook")
+    public RentalBook returnBook(Book book) throws RentalBookNotFoundException {
+        return rentBookService.returnBook(book);
+    }
+
+    //Dopisać hash dla książki(forma zapisu book kodem kreskowym) dla odczytania z bazy odpowiedniej książki
 
 //    dodanie czytelnika,
 //    dodanie tytułu,

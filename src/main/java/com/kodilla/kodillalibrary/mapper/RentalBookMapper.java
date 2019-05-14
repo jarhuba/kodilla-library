@@ -15,12 +15,12 @@ public class RentalBookMapper {
     }
 
     public RentalBookDto mapToBookRentalDto(final RentalBook rentalBook) {
-        return new RentalBookDto(rentalBook.getRentalId(), rentalBook.getRentalDate(), rentalBook.getReturnDate(), rentalBook.getBorrowedBookId(), rentalBook.getBorrowerUser());
+        return new RentalBookDto(rentalBook.getRentalId(), rentalBook.getRentalDate(), rentalBook.getReturnDate(), rentalBook.getRentedBookId(), rentalBook.getBorrowerUser());
     }
 
     public List<RentalBookDto> mapToBookRentalListDto(final List<RentalBook> rentalBookList) {
         return rentalBookList.stream()
-                .map(bookRental -> new RentalBookDto(bookRental.getRentalId(), bookRental.getRentalDate(), bookRental.getReturnDate(), bookRental.getBorrowedBookId(), bookRental.getBorrowerUser()))
+                .map(bookRental -> new RentalBookDto(bookRental.getRentalId(), bookRental.getRentalDate(), bookRental.getReturnDate(), bookRental.getRentedBookId(), bookRental.getBorrowerUser()))
                 .collect(Collectors.toList());
     }
 }

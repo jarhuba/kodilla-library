@@ -32,6 +32,6 @@ public class User {
             targetEntity = RentalBook.class,
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
-            mappedBy = "borrowerUserId")
+            mappedBy = "borrowerUser")
     private List<RentalBook> rentalsForUser;
 }

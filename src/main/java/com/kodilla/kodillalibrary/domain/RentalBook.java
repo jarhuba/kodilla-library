@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "BOOKS_RENTALS")
@@ -29,11 +30,24 @@ public class RentalBook {
 
     @OneToOne(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
-    @JoinColumn(name = "BORROWED_BOOK_ID")
-    private Book borrowedBookId;
+    @JoinColumn(name = "RENTED_BOOK_ID")
+    private Book rentedBookId;
 
     @ManyToOne(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID_WHO_BORROWS")
     private User borrowerUser;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RentalBook that = (RentalBook) o;
+        return rentalId.equals(that.rentalId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rentalId);
+    }
 }
