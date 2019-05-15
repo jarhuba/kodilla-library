@@ -1,5 +1,7 @@
 package com.kodilla.kodillalibrary.services.db;
 
+import com.kodilla.kodillalibrary.controller.exception.TitleNotFoundException;
+import com.kodilla.kodillalibrary.domain.Book;
 import com.kodilla.kodillalibrary.domain.StatusOfBook;
 import com.kodilla.kodillalibrary.domain.Title;
 import com.kodilla.kodillalibrary.repository.BookRepository;
@@ -24,12 +26,18 @@ public class TitleDbService {
         return titleRepository.findAll();
     }
 
-    public Integer getAvaiableBooksNumberForTitle(final Title title) {
-        return bookRepository.findAllByStatusEqualsAndTitle(StatusOfBook.AVAIABLE, title).size();
+    public Integer getAvaiableBooksNumberForTitleId(final Long titleId) throws TitleNotFoundException{
+        List<Book> books =(titleRepository.findAllByTitleId(titleId).orElseThrow(TitleNotFoundException::new)).getBooks();
+        for(Book b : books) {
+            if (!b.getStatus().equals(StatusOfBook.AVAIABLE)) {
+                books.remove(b);
+            }
+        }
+        return books.size();
     }
 
-    public Optional<Title> findTitleById(final Long id) {
-        return titleRepository.findById(id);
+    public Title findTitleById(final Long titleId) throws TitleNotFoundException {
+        return titleRepository.findById(titleId).orElseThrow(TitleNotFoundException::new);
     }
 
     public Title saveTitle(final Title title) {

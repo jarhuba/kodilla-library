@@ -1,9 +1,9 @@
 package com.kodilla.kodillalibrary.controller;
 
 import com.kodilla.kodillalibrary.controller.exception.BookNotFoundException;
+import com.kodilla.kodillalibrary.controller.exception.TitleNotFoundException;
 import com.kodilla.kodillalibrary.domain.dto.AvaiableBooksNumberDto;
 import com.kodilla.kodillalibrary.domain.dto.BookDto;
-import com.kodilla.kodillalibrary.domain.dto.TitleDto;
 import com.kodilla.kodillalibrary.mapper.AvaiableBookNumberMapper;
 import com.kodilla.kodillalibrary.mapper.BookMapper;
 import com.kodilla.kodillalibrary.mapper.TitleMapper;
@@ -39,8 +39,8 @@ public class BookController {
     }
 
     @GetMapping("getAvaiableBooksNumber")
-    public AvaiableBooksNumberDto getAvaiableBooksNumber(@RequestBody TitleDto titleDto) {
-        return avaiableBookNumberMapper.mapToAvaiableBooksNumberDto(titleDbService.getAvaiableBooksNumberForTitle(titleMapper.mapToTitle(titleDto)));
+    public AvaiableBooksNumberDto getAvaiableBooksNumber(@RequestParam Long titleId) throws TitleNotFoundException {
+        return avaiableBookNumberMapper.mapToAvaiableBooksNumberDto(titleDbService.getAvaiableBooksNumberForTitleId(titleId));
     }
 
     @GetMapping("getBookByHashcode")

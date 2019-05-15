@@ -19,8 +19,8 @@ public class RentRefusalLogicService {
     private UserDbService userDbService;
 
     public RightToRentDto checkRules(User user, Title title) throws TitleNotFoundException, UserNotFoundException {
-        boolean isAvaiable = titleDbService.findTitleById(title.getTitleId()).orElseThrow(TitleNotFoundException::new).getBooks().size() > 0;
-        boolean isRentedLessThanFour = userDbService.findUserById(user.getUserId()).orElseThrow(UserNotFoundException::new).getRentalsForUser().size() < 4;
+        boolean isAvaiable = titleDbService.findTitleById(title.getTitleId()).getBooks().size() > 0;
+        boolean isRentedLessThanFour = userDbService.findUserById(user.getUserId()).getRentalsForUser().size() < 4;
         return new RightToRentDto(isAvaiable, isRentedLessThanFour);
     }
 }

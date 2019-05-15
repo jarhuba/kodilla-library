@@ -1,5 +1,6 @@
 package com.kodilla.kodillalibrary.services.db;
 
+import com.kodilla.kodillalibrary.controller.exception.UserNotFoundException;
 import com.kodilla.kodillalibrary.domain.User;
 import com.kodilla.kodillalibrary.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class UserDbService {
         return userRepository.findAll();
     }
 
-    public Optional<User> findUserById(final Long id) {
-        return userRepository.findById(id);
+    public User findUserById(final Long id) throws UserNotFoundException {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
     public User saveUser(final User user) {

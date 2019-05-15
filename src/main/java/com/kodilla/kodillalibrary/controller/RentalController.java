@@ -3,6 +3,7 @@ package com.kodilla.kodillalibrary.controller;
 import com.kodilla.kodillalibrary.controller.exception.RentalNotFoundException;
 import com.kodilla.kodillalibrary.domain.Book;
 import com.kodilla.kodillalibrary.domain.Rental;
+import com.kodilla.kodillalibrary.domain.Title;
 import com.kodilla.kodillalibrary.domain.dto.RentalDto;
 import com.kodilla.kodillalibrary.domain.dto.TitleDto;
 import com.kodilla.kodillalibrary.domain.dto.UserDto;
@@ -12,10 +13,7 @@ import com.kodilla.kodillalibrary.mapper.UserMapper;
 import com.kodilla.kodillalibrary.services.RentService;
 import com.kodilla.kodillalibrary.services.db.RentalDbService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,8 +34,8 @@ public class RentalController {
     private RentalMapper rentalMapper;
 
     @GetMapping("rentBook")
-    public Rental rentBook(UserDto userDto, TitleDto titleDto) throws Exception {
-        return rentService.rentBook(titleMapper.mapToTitle(titleDto), userMapper.mapToUser(userDto));
+    public Rental rentBook(@RequestParam Long userId, @RequestParam Long titleId) throws Exception {
+        return rentService.rentBook(userId,titleId);
     }
 
     @GetMapping("returnBook")

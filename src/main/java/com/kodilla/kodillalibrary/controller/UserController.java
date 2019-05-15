@@ -16,8 +16,8 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @GetMapping("addUser")
-    public void saveUser(@RequestBody UserDto userDto) {
+    @PostMapping("addUser")
+    public void addUser(@RequestBody UserDto userDto) {
         userDbService.saveUser(userMapper.mapToUser(userDto));
     }
 }

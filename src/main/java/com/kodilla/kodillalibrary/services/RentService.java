@@ -10,6 +10,7 @@ import com.kodilla.kodillalibrary.domain.Title;
 import com.kodilla.kodillalibrary.domain.User;
 import com.kodilla.kodillalibrary.domain.dto.RightToRentDto;
 import com.kodilla.kodillalibrary.services.db.RentalDbService;
+import com.kodilla.kodillalibrary.services.db.TitleDbService;
 import com.kodilla.kodillalibrary.services.db.UserDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,16 @@ public class RentService {
     private RentRefusalLogicService rentRefusalLogicService;
     @Autowired
     private UserDbService userDbService;
+    @Autowired
+    private TitleDbService titleDbService;
 
-    public Rental rentBook(Title title, User user) throws TitleNotFoundException, UserNotFoundException, UnsuccesfulRentException {
-        RightToRentDto rightToRentDto = rentRefusalLogicService.checkRules(user, title);
+    public Rental rentBook(final Long titleId, final Long userId) throws TitleNotFoundException, UserNotFoundException, UnsuccesfulRentException {
+        Title t = titleDbService.findTitleById(titleId);
+        User u = userDbService.findUserById(userId);
+        RightToRentDto rightToRentDto = rentRefusalLogicService.checkRules(u, t);
         if (rightToRentDto.isAvaiable() && rightToRentDto.isRentedLessThanFour()) {
             Rental rental = new Rental();
-            rental.setBorrowerUser(user);
+            rental.setBorrowerUser(u);
             rental.setRentalDate(LocalDate.now());
             return rentalDbService.saveRental(rental);
         } else {
