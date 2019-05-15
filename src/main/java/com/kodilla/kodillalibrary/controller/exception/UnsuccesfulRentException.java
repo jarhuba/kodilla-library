@@ -2,9 +2,9 @@ package com.kodilla.kodillalibrary.controller.exception;
 
 public class UnsuccesfulRentException extends Exception{
 
-    String explanation;
+    String explain;
 
-    public UnsuccesfulRentException(String explanation) {
-        this.explanation = explanation;
+    public UnsuccesfulRentException(String explain) {
+        this.explain = explain;
     }
 }

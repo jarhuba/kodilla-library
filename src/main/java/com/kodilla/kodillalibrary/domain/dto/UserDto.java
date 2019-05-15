@@ -1,6 +1,6 @@
 package com.kodilla.kodillalibrary.domain.dto;
 
-import com.kodilla.kodillalibrary.domain.RentalBook;
+import com.kodilla.kodillalibrary.domain.Rental;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +18,5 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private Date registrationDate;
-    private List<RentalBook> rentalsForUser;
+    private List<Rental> rentalsForUser;
 }

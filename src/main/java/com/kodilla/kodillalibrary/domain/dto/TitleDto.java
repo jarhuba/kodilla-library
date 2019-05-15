@@ -18,4 +18,10 @@ public class TitleDto {
     private String author;
     private Date releaseDate;
     private List<Book> books;
+
+    public TitleDto(String title, String author, Date releaseDate) {
+        this.title = title;
+        this.author = author;
+        this.releaseDate = releaseDate;
+    }
 }

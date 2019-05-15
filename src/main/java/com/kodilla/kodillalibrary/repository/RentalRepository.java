@@ -1,12 +1,12 @@
 package com.kodilla.kodillalibrary.repository;
 
 import com.kodilla.kodillalibrary.domain.Book;
-import com.kodilla.kodillalibrary.domain.RentalBook;
+import com.kodilla.kodillalibrary.domain.Rental;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface RentalRepository extends JpaRepository<RentalBook, Long> {
+public interface RentalRepository extends JpaRepository<Rental, Long> {
 
-    Optional<RentalBook> findRentalBookByRentedBookId(Book book);
+    Optional<Rental> findRentalByRentedBookId(Book book);
 }

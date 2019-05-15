@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class RentalBookDto {
+public class RentalDto {
 
     private Long rentalId;
     private LocalDate rentalDate;

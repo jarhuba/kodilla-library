@@ -17,6 +17,7 @@ public class User {
 
     @Id
     @Column(name = "USER_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
 
     @Column(name = "FIRST_NAME")
@@ -29,9 +30,9 @@ public class User {
     private Date registrationDate;
 
     @OneToMany(
-            targetEntity = RentalBook.class,
+            targetEntity = Rental.class,
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "borrowerUser")
-    private List<RentalBook> rentalsForUser;
+    private List<Rental> rentalsForUser;
 }

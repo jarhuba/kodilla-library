@@ -1,11 +1,13 @@
 package com.kodilla.kodillalibrary.domain.dto;
 
-import com.kodilla.kodillalibrary.domain.RentalBook;
+import com.kodilla.kodillalibrary.domain.Rental;
 import com.kodilla.kodillalibrary.domain.StatusOfBook;
 import com.kodilla.kodillalibrary.domain.Title;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,7 +15,8 @@ import lombok.NoArgsConstructor;
 public class BookDto {
 
     private Long bookId;
-    private StatusOfBook status;
+    private StatusOfBook statusOfBook;
     private Title title;
-    private RentalBook rentalBookId;
+    private Rental rentalId;
+    private UUID hashcode;
 }

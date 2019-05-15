@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -16,10 +15,11 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
-public class RentalBook {
+public class Rental {
 
     @Id
     @Column(name = "RENTAL_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long rentalId;
 
     @Column(name = "RENTAL_DATE")
@@ -42,7 +42,7 @@ public class RentalBook {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RentalBook that = (RentalBook) o;
+        Rental that = (Rental) o;
         return rentalId.equals(that.rentalId);
     }
 
