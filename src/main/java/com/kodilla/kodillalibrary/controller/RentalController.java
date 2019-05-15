@@ -33,12 +33,12 @@ public class RentalController {
     @Autowired
     private RentalMapper rentalMapper;
 
-    @GetMapping("rentBook")
+    @PostMapping("rentBook")
     public Rental rentBook(@RequestParam Long userId, @RequestParam Long titleId) throws Exception {
-        return rentService.rentBook(userId,titleId);
+        return rentService.rentBook(titleId,userId);
     }
 
-    @GetMapping("returnBook")
+    @PostMapping("returnBook")
     public Rental returnBook(Book book) throws RentalNotFoundException {
         return rentService.returnBook(book);
     }

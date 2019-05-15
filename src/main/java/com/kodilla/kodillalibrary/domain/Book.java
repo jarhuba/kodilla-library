@@ -38,5 +38,5 @@ public class Book {
 
     @Column(name = "HASHCODE")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID hashcode;
+    private String hashcode = UUID.randomUUID().toString();
 }

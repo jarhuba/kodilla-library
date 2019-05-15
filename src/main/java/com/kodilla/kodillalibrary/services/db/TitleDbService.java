@@ -27,7 +27,7 @@ public class TitleDbService {
     }
 
     public Integer getAvaiableBooksNumberForTitleId(final Long titleId) throws TitleNotFoundException{
-        List<Book> books =(titleRepository.findAllByTitleId(titleId).orElseThrow(TitleNotFoundException::new)).getBooks();
+        List<Book> books =(titleRepository.findByTitleId(titleId).orElseThrow(TitleNotFoundException::new)).getBooks();
         for(Book b : books) {
             if (!b.getStatus().equals(StatusOfBook.AVAIABLE)) {
                 books.remove(b);
@@ -37,7 +37,7 @@ public class TitleDbService {
     }
 
     public Title findTitleById(final Long titleId) throws TitleNotFoundException {
-        return titleRepository.findById(titleId).orElseThrow(TitleNotFoundException::new);
+        return titleRepository.findByTitleId(titleId).orElseThrow(TitleNotFoundException::new);
     }
 
     public Title saveTitle(final Title title) {

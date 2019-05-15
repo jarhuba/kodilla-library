@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface TitleRepository extends JpaRepository<Title, Long> {
 
-    Optional<Title> findAllByTitleId(Long titleId);
+    Optional<Title> findByTitleId(Long titleId);
 }
