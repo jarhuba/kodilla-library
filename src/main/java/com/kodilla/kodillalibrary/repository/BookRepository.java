@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    Optional<Book> findBookByHashcode(Integer hashcode);
+    Optional<Book> findBookByBookUuid(String bookUuid);
 
     @Override
     Book save(Book book);

@@ -1,7 +1,6 @@
 package com.kodilla.kodillalibrary.mapper;
 
-import com.kodilla.kodillalibrary.domain.Title;
-import com.kodilla.kodillalibrary.domain.dto.AvaiableBooksNumberDto;
+import com.kodilla.kodillalibrary.controller.dto.AvaiableBooksNumberDto;
 import org.springframework.stereotype.Component;
 
 @Component

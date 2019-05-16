@@ -2,11 +2,10 @@ package com.kodilla.kodillalibrary.controller;
 
 import com.kodilla.kodillalibrary.controller.exception.BookNotFoundException;
 import com.kodilla.kodillalibrary.controller.exception.TitleNotFoundException;
-import com.kodilla.kodillalibrary.domain.dto.AvaiableBooksNumberDto;
+import com.kodilla.kodillalibrary.controller.dto.AvaiableBooksNumberDto;
 import com.kodilla.kodillalibrary.domain.dto.BookDto;
 import com.kodilla.kodillalibrary.mapper.AvaiableBookNumberMapper;
 import com.kodilla.kodillalibrary.mapper.BookMapper;
-import com.kodilla.kodillalibrary.mapper.TitleMapper;
 import com.kodilla.kodillalibrary.services.db.BookDbService;
 import com.kodilla.kodillalibrary.services.db.TitleDbService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,6 @@ public class BookController {
     private AvaiableBookNumberMapper avaiableBookNumberMapper;
     @Autowired
     private TitleDbService titleDbService;
-    @Autowired
-    private TitleMapper titleMapper;
 
     @PostMapping("addBook")
     public void addBook(@RequestBody BookDto bookDto) {
@@ -43,8 +40,8 @@ public class BookController {
         return avaiableBookNumberMapper.mapToAvaiableBooksNumberDto(titleDbService.getAvaiableBooksNumberForTitleId(titleId));
     }
 
-    @GetMapping("getBookByHashcode")
-    public BookDto getBookByHashcode(@RequestParam Integer hashcode) throws BookNotFoundException {
-        return bookMapper.mapToBookDto(bookDbService.findBookByHashcode(hashcode));
+    @GetMapping("getBookByUuidBook")
+    public BookDto getBookBybookUuid(@RequestParam String bookUuid) throws BookNotFoundException {
+        return bookMapper.mapToBookDto(bookDbService.findBookByBookUuid(bookUuid));
     }
 }

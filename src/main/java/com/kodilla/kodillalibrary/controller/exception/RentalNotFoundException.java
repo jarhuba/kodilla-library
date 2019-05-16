@@ -1,4 +1,4 @@
 package com.kodilla.kodillalibrary.controller.exception;
 
-public class RentalNotFoundException extends Exception {
+public class RentalNotFoundException extends RuntimeException {
 }

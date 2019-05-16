@@ -15,7 +15,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Rental {
+public class Rent {
 
     @Id
     @Column(name = "RENTAL_ID")
@@ -28,7 +28,8 @@ public class Rental {
     @Column(name = "RETURN_DATE")
     private LocalDate returnDate;
 
-    @OneToOne(cascade = CascadeType.ALL,
+    @OneToOne(
+            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     @JoinColumn(name = "RENTED_BOOK_ID")
     private Book rentedBookId;
@@ -42,7 +43,7 @@ public class Rental {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Rental that = (Rental) o;
+        Rent that = (Rent) o;
         return rentalId.equals(that.rentalId);
     }
 

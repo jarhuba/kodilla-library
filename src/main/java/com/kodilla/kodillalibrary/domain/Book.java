@@ -3,6 +3,7 @@ package com.kodilla.kodillalibrary.domain;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class Book {
 
     @Id
@@ -34,9 +36,9 @@ public class Book {
 
     @OneToOne
     @JoinColumn(name = "BOOK_RENTAL_ID")
-    private Rental rentalId;
+    private Rent rentId;
 
     @Column(name = "HASHCODE")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String hashcode = UUID.randomUUID().toString();
+    private String bookUuid = UUID.randomUUID().toString();
 }

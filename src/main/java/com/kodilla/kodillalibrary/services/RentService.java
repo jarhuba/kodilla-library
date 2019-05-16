@@ -1,43 +1,62 @@
 package com.kodilla.kodillalibrary.services;
 
-import com.kodilla.kodillalibrary.controller.exception.RentalNotFoundException;
-import com.kodilla.kodillalibrary.controller.exception.TitleNotFoundException;
-import com.kodilla.kodillalibrary.controller.exception.UnsuccesfulRentException;
-import com.kodilla.kodillalibrary.controller.exception.UserNotFoundException;
-import com.kodilla.kodillalibrary.domain.Book;
-import com.kodilla.kodillalibrary.domain.Rental;
-import com.kodilla.kodillalibrary.domain.Title;
-import com.kodilla.kodillalibrary.domain.User;
+import com.kodilla.kodillalibrary.controller.exception.*;
+import com.kodilla.kodillalibrary.domain.*;
 import com.kodilla.kodillalibrary.domain.dto.RightToRentDto;
-import com.kodilla.kodillalibrary.services.db.RentalDbService;
+import com.kodilla.kodillalibrary.services.db.BookDbService;
+import com.kodilla.kodillalibrary.services.db.RentDbService;
 import com.kodilla.kodillalibrary.services.db.TitleDbService;
 import com.kodilla.kodillalibrary.services.db.UserDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class RentService {
 
     @Autowired
-    private RentalDbService rentalDbService;
-    @Autowired
-    private RentRefusalLogicService rentRefusalLogicService;
+    private RentDbService rentDbService;
     @Autowired
     private UserDbService userDbService;
     @Autowired
+    private BookDbService bookDbService;
+    @Autowired
     private TitleDbService titleDbService;
 
-    public Rental rentBook(final Long titleId, final Long userId) throws TitleNotFoundException, UserNotFoundException, UnsuccesfulRentException {
-        Title t = titleDbService.findTitleById(titleId);
-        User u = userDbService.findUserById(userId);
-        RightToRentDto rightToRentDto = rentRefusalLogicService.checkRules(u, t);
+    private RightToRentDto checkIsRentPossible(Title title, User user) throws TitleNotFoundException, UserNotFoundException {
+        List<Book> booksTitle = titleDbService.findTitleById(title.getTitleId()).getBooks();
+        int avaiableBooksForRental = 0;
+        for (int i = 0; i < booksTitle.size(); i++) {
+            if (booksTitle.get(i).getStatus().equals(StatusOfBook.AVAIABLE)) {
+                avaiableBooksForRental++;
+            }
+        }
+        boolean isAvaiable = avaiableBooksForRental > 0;
+        boolean isRentedLessThanFour = userDbService.findUserById(user.getUserId()).getRentalsForUser().size() < 4;
+        return new RightToRentDto(isAvaiable, isRentedLessThanFour);
+    }
+
+    private void rentBook(Title title) {
+        for (int i = 0; i < title.getBooks().size(); i++) {
+            if (title.getBooks().get(i).getStatus().equals(StatusOfBook.AVAIABLE)) {
+                title.getBooks().get(i).setStatus(StatusOfBook.BORROWED);
+                break;
+            }
+        }
+    }
+
+    public Rent rentTitle(final Title title, final User user) throws
+            TitleNotFoundException, UserNotFoundException, UnsuccesfulRentException {
+
+        RightToRentDto rightToRentDto = checkIsRentPossible(title, user);
         if (rightToRentDto.isAvaiable() && rightToRentDto.isRentedLessThanFour()) {
-            Rental rental = new Rental();
-            rental.setBorrowerUser(u);
-            rental.setRentalDate(LocalDate.now());
-            return rentalDbService.saveRental(rental);
+            Rent rent = new Rent();
+            rent.setBorrowerUser(user);
+            rent.setRentalDate(LocalDate.now());
+            rentBook(title);
+            return rentDbService.saveRental(rent);
         } else {
             String explain = "Książka nie wypożyczona, ponieważ: \n";
             if (!rightToRentDto.isAvaiable()) {
@@ -50,10 +69,11 @@ public class RentService {
         }
     }
 
-    public Rental returnBook(Book book) throws RentalNotFoundException {
-       Rental rental = rentalDbService.findRentalByRentedBookId(book);
-       rental.setReturnDate(LocalDate.now());
-       rental.getBorrowerUser().getRentalsForUser().remove(rental); //TODO sprawdź czy zapisuje zmianę
-       return rental;
+    public Rent returnBook(String bookUuid) throws RentalNotFoundException, BookNotFoundException {
+        Long bookId = bookDbService.findBookByBookUuid(bookUuid).getBookId();
+        Long rentalId = rentDbService.findRentalByRentedBookId(bookId).getRentalId();
+        rentDbService.findRentalByRentalId(rentalId).setReturnDate(LocalDate.now());
+        rentDbService.findRentalByRentalId(rentalId).getBorrowerUser().getRentalsForUser().remove(rentDbService.findRentalByRentedBookId(bookId));
+        return rentDbService.findRentalByRentalId(rentalId);
     }
 }

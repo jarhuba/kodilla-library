@@ -22,7 +22,7 @@ public class UserDbService {
     }
 
     public User findUserById(final Long id) throws UserNotFoundException {
-        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        return userRepository.findUserByUserId(id).orElseThrow(UserNotFoundException::new);
     }
 
     public User saveUser(final User user) {

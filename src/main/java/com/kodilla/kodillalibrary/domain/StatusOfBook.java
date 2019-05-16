@@ -4,7 +4,7 @@ import lombok.Getter;
 
 public enum StatusOfBook {
 
-    AVAIABLE("avaiable"), LOST("lost"), DESTROYED("destroyed");
+    AVAIABLE("avaiable"), LOST("lost"), DESTROYED("destroyed"), BORROWED("borrowed");
 
     @Getter
     private String status;

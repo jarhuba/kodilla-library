@@ -20,12 +20,12 @@ public class BookDbService {
         return bookRepository.findAll();
     }
 
-    public Book findBookById(final Long id) throws BookNotFoundException {
-        return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+    public Book findBookById(final Long bookId) throws BookNotFoundException {
+        return bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
     }
 
-    public Book findBookByHashcode(Integer hashcode) throws BookNotFoundException {
-        return bookRepository.findBookByHashcode(hashcode).orElseThrow(BookNotFoundException::new);
+    public Book findBookByBookUuid(final String bookUuid) throws BookNotFoundException {
+        return bookRepository.findBookByBookUuid(bookUuid).orElseThrow(BookNotFoundException::new);
     }
 
     public Book saveBook(final Book book) {

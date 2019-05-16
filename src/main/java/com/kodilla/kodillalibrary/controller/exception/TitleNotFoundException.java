@@ -1,4 +1,4 @@
 package com.kodilla.kodillalibrary.controller.exception;
 
-public class TitleNotFoundException extends Exception{
+public class TitleNotFoundException extends RuntimeException{
 }
