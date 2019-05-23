@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,11 +20,4 @@ public class BookDto {
     private Rent rentId;
     private String bookUuid;
 
-    public BookDto(Long bookId) {
-        this.bookId = bookId;
-    }
-
-    public BookDto(String bookUuid) {
-        this.bookUuid = bookUuid;
-    }
 }

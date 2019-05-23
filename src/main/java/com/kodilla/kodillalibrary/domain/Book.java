@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,21 +25,26 @@ public class Book {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
-    @NotNull
+    //@GeneratedValue(generator = "AVAIABLE")
     private StatusOfBook status;
 
     @ManyToOne(
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
-    @JoinColumn(name = "RELATED_TITLE_ID")
+    @JoinColumn(name = "TITLE_ID")
     @NotNull
     private Title title;
 
     @OneToOne
-    @JoinColumn(name = "BOOK_RENTAL_ID")
+    @JoinColumn(name = "RENTAL_ID")
     private Rent rentId;
 
-    @Column(name = "HASHCODE")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String bookUuid = UUID.randomUUID().toString();
+    @Column(name = "BOOK_UUID", updatable = false, nullable = false)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private String bookUuid;
+
+    public Book(@NotNull Title title) {
+        this.title = title;
+    }
 }

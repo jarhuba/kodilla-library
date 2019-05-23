@@ -43,7 +43,7 @@ public class RentController {
 
     @PostMapping("returnBook")
     public RentDto returnBook(BookDto bookDto) throws RentalNotFoundException {
-        return rentMapper.mapToRentalDto(rentService.returnBook(bookMapper.mapToBook(bookDto).getBookUuid()));
+        return rentMapper.mapToRentalDto(rentService.returnBook(bookMapper.mapToBook(bookDto).getBookUuid().toString()));
     }
 
     @GetMapping("showAllRentals")
