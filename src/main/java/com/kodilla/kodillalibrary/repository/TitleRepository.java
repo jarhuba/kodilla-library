@@ -8,4 +8,7 @@ import java.util.Optional;
 public interface TitleRepository extends JpaRepository<Title, Long> {
 
     Optional<Title> findByTitleId(Long titleId);
+
+    @Override
+    Title save(Title title);
 }
