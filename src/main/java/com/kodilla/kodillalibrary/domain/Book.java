@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,8 +24,7 @@ public class Book {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
-    //@GeneratedValue(generator = "AVAIABLE")
-    private StatusOfBook status;
+    private StatusOfBook status = StatusOfBook.AVAIABLE;
 
     @ManyToOne(
             fetch = FetchType.EAGER,
@@ -40,9 +38,7 @@ public class Book {
     private Rent rentId;
 
     @Column(name = "BOOK_UUID", updatable = false, nullable = false)
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private String bookUuid;
+    private String bookUuid = UUID.randomUUID().toString();
 
     public Book(@NotNull Title title) {
         this.title = title;

@@ -39,6 +39,13 @@ public class Rent {
     @JoinColumn(name = "USER_ID_WHO_BORROWS")
     private User borrowerUser;
 
+    public Rent(LocalDate rentalDate, LocalDate returnDate, Book rentedBookId, User borrowerUser) {
+        this.rentalDate = rentalDate;
+        this.returnDate = returnDate;
+        this.rentedBookId = rentedBookId;
+        this.borrowerUser = borrowerUser;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
